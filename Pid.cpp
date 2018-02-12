@@ -40,7 +40,11 @@ unsigned int PID::millis()
 {
     struct timeval timer;
     gettimeofday(&timer, NULL);
-    double time_in_mill = (timer.tv_sec) * 1000 + (timer.tv_usec) / 1000 ; // convert tv_sec & tv_usec to millisecond
+
+    int sec = timer.tv_sec;// convert tv_sec & tv_usec to millisecond
+    double time_in_mill = (sec % 10) * 1000 ;
+    double usec = (timer.tv_usec) / 1000;
+    time_in_mill += usec;
     return (unsigned int)time_in_mill;
 }
 
@@ -55,14 +59,16 @@ bool PID::Compute()
 {  
     if(!inAuto) return false;
     unsigned long now = millis();
+    //printf("time = %lld\n",now);
+
     unsigned long timeChange = (now - lastTime);
+    //printf("time = %lld %lld \n",now,lastTime);
     if(timeChange>=SampleTime)
     {
       /*Compute all the working error variables*/
       double input = *myInput;
       double error = *mySetpoint - input;
       double dInput = (input - lastInput);
-
       outputSum+= (ki * error);
 
       /*Add Proportional on Measurement, if P_ON_M is specified*/

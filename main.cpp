@@ -348,7 +348,7 @@ void PWM_Calculate()
     pwm_r =int(pwm - aggVs * speedAdjust + Turn_Need);
     pwm_l =int(pwm + aggVs * speedAdjust - Turn_Need);
 
-    //printf("Angle: %.02f  pwm_r: %3d  pwm_l: %3d\n",Angle_MPU,pwm_r,pwm_l);
+    printf("Angle: %.02f  pwm_r: %3d  pwm_l: %3d\n",Angle_MPU,pwm_r,pwm_l);
 
     Speed_L = 0;
     Speed_R = 0;
@@ -408,20 +408,20 @@ PI_THREAD (mainThread)
         //PWM_Calculate_Pos();
         Robot_Control();
 
-        printf("%.0f, %.0f, %d, %d, %d, %d\n",
-        Angle_MPU,
-        Gyro_MPU,
-        Speed_Need,
-        Turn_Need,
-        Speed_L,
-        Speed_R);
-        printf("%d, %d, %d, %.0f, %.0f, %.0f\n",
-        pwm,
-        pwm_l,
-        pwm_r,
-        SKp,
-        SKi,
-        SKd);
+        // printf("%.0f, %.0f, %d, %d, %d, %d\n",
+        // Angle_MPU,
+        // Gyro_MPU,
+        // Speed_Need,
+        // Turn_Need,
+        // Speed_L,
+        // Speed_R);
+        // printf("%d, %d, %d, %.0f, %.0f, %.0f\n",
+        // pwm,
+        // pwm_l,
+        // pwm_r,
+        // SKp,
+        // SKi,
+        // SKd);
 
         delay(100);
         ::usleep(SLEEP_PERIOD * SAMPLE_TIME);
